@@ -1,9 +1,10 @@
 import React from "react";
 import { z } from "zod";
 import { DocsIllustration } from "../components/DocsIllustration";
+import { CustomLogo, LogoOption, logoOptions } from "../components/CustomLogo";
 import { authors, getAuthor } from "./authors";
 import { ILayout } from "./types";
-import { GradientBackground, RLogo } from "./utils";
+import { GradientBackground } from "./utils";
 
 const blogLayoutConfig = z.object({
   Title: z.string(),
@@ -12,11 +13,19 @@ const blogLayoutConfig = z.object({
     v => v?.toString().toLowerCase(),
     z.enum(["light", "dark"]).default("dark"),
   ),
+  Logo: z.enum([
+    "guidenai-dark",
+    "guidenai-light", 
+    "guidenai-colored",
+    "broxi-dark",
+    "broxi-light",
+    "broxi-colored"
+  ] as const).default("guidenai-dark"),
 });
 
 export type BlogLayoutConfig = z.infer<typeof blogLayoutConfig>;
 
-const Component: React.FC<{ config: BlogLayoutConfig }> = ({ config }) => {
+const Component: React.FC<{ config: BlogLayoutConfig & { isServerSide?: boolean } }> = ({ config }) => {
   const author = getAuthor(config.Author);
   const length = config.Title.length;
 
@@ -52,17 +61,13 @@ const Component: React.FC<{ config: BlogLayoutConfig }> = ({ config }) => {
         </div>
       </div>
 
-      {/* railway logo */}
-      {/* <RLogo
-        theme={config.Theme}
-        tw="absolute"
-        style={{ top: 88, left: 96, width: 88, height: 88 }}
-      /> */}
-
-      <RLogo
+      {/* custom logo */}
+      <CustomLogo
+        logo={config.Logo}
         tw="absolute"
         style={{ top: 106, right: 97 }}
         theme={config.Theme}
+        isServerSide={config.isServerSide}
       />
       <div tw="absolute top-0 right-0 flex">
         <DocsIllustration />
@@ -92,6 +97,12 @@ export const blogLayout: ILayout<typeof blogLayoutConfig> = {
       name: "Theme",
       default: "dark",
       options: ["light", "dark"],
+    },
+    {
+      type: "select",
+      name: "Logo",
+      default: "guidenai-dark",
+      options: logoOptions.map(option => option.value),
     },
   ],
   Component,

@@ -29,7 +29,7 @@ export const renderLayoutToSVG = async ({
 }) => {
   const Component = layout.Component;
 
-  const svg = await satori(<Component config={config} />, {
+  const svg = await satori(<Component config={{...config, isServerSide: true}} />, {
     width: OG_WIDTH,
     height: OG_HEIGHT,
     fonts,

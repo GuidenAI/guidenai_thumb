@@ -1,17 +1,26 @@
 import React from "react";
 import { z } from "zod";
+import { CustomLogo, logoOptions } from "../components/CustomLogo";
 import { ILayout } from "./types";
-import { GradientBackground, RLogo } from "./utils";
+import { GradientBackground } from "./utils";
 
 const starterLayoutConfig = z.object({
   Name: z.string().default(""),
   URL: z.string().nullish(),
   Icon: z.enum(["Show", "Hide"]).default("Show"),
+  Logo: z.enum([
+    "guidenai-dark",
+    "guidenai-light", 
+    "guidenai-colored",
+    "broxi-dark",
+    "broxi-light",
+    "broxi-colored"
+  ] as const).default("guidenai-dark"),
 });
 
 export type BlogLayoutConfig = z.infer<typeof starterLayoutConfig>;
 
-const Component: React.FC<{ config: BlogLayoutConfig }> = ({ config }) => {
+const Component: React.FC<{ config: BlogLayoutConfig & { isServerSide?: boolean } }> = ({ config }) => {
   const iconName = config.Name.trim() === "" ? "Railway" : config.Name;
   const iconURL = `https://devicons.railway.app/${iconName}?variant=light`;
   const hideIcon = config.Icon === "Hide";
@@ -46,10 +55,12 @@ const Component: React.FC<{ config: BlogLayoutConfig }> = ({ config }) => {
         </div>
       )}
 
-      {/* railway logo */}
-      <RLogo
+      {/* custom logo */}
+      <CustomLogo
+        logo={config.Logo}
         tw="absolute"
         style={{ top: 66, right: 96, width: 60, height: 60 }}
+        isServerSide={config.isServerSide}
       />
     </div>
   );
@@ -75,6 +86,12 @@ export const starterLayout: ILayout<typeof starterLayoutConfig> = {
       type: "select",
       options: ["Show", "Hide"],
       default: "Show",
+    },
+    {
+      name: "Logo",
+      type: "select",
+      default: "guidenai-dark",
+      options: logoOptions.map(option => option.value),
     },
   ],
   Component,

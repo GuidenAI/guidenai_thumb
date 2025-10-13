@@ -1,17 +1,25 @@
 import React from "react";
 import { z } from "zod";
 import { DocsIllustration } from "../components/DocsIllustration";
+import { CustomLogo, logoOptions } from "../components/CustomLogo";
 import { ILayout } from "./types";
-import { RLogo } from "./utils";
 
 const docsLayoutConfig = z.object({
   Page: z.string(),
   Url: z.string().nullish(),
+  Logo: z.enum([
+    "guidenai-dark",
+    "guidenai-light", 
+    "guidenai-colored",
+    "broxi-dark",
+    "broxi-light",
+    "broxi-colored"
+  ] as const).default("guidenai-dark"),
 });
 
 export type DocsLayoutConfig = z.infer<typeof docsLayoutConfig>;
 
-const Component: React.FC<{ config: DocsLayoutConfig }> = ({ config }) => {
+const Component: React.FC<{ config: DocsLayoutConfig & { isServerSide?: boolean } }> = ({ config }) => {
   const url =
     (config.Url ?? "").trim() === ""
       ? "docs.railway.com"
@@ -65,8 +73,8 @@ const Component: React.FC<{ config: DocsLayoutConfig }> = ({ config }) => {
         {url}
       </p>
 
-      {/* railway logo */}
-      <RLogo tw="absolute" style={{ top: 106, right: 97 }} />
+      {/* custom logo */}
+      <CustomLogo logo={config.Logo} tw="absolute" style={{ top: 106, right: 97 }} isServerSide={config.isServerSide} />
 
       {/* illustration */}
       <div tw="absolute top-0 right-0 flex">
@@ -91,6 +99,12 @@ export const docsLayout: ILayout<typeof docsLayoutConfig> = {
       name: "Url",
       default: "docs.railway.com",
       placeholder: "Url to display",
+    },
+    {
+      type: "select",
+      name: "Logo",
+      default: "guidenai-dark",
+      options: logoOptions.map(option => option.value),
     },
   ],
   Component,
