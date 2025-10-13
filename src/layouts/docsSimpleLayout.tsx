@@ -1,10 +1,9 @@
 import React from "react";
 import { z } from "zod";
-import { DocsIllustration } from "../components/DocsIllustration";
 import { CustomLogo, logoOptions } from "../components/CustomLogo";
 import { ILayout } from "./types";
 
-const docsLayoutConfig = z.object({
+const docsSimpleLayoutConfig = z.object({
   Page: z.string(),
   Url: z.string().nullish(),
   Logo: z.enum([
@@ -17,9 +16,9 @@ const docsLayoutConfig = z.object({
   ] as const).default("guidenai-light"),
 });
 
-export type DocsLayoutConfig = z.infer<typeof docsLayoutConfig>;
+export type DocsSimpleLayoutConfig = z.infer<typeof docsSimpleLayoutConfig>;
 
-const Component: React.FC<{ config: DocsLayoutConfig & { isServerSide?: boolean } }> = ({ config }) => {
+const Component: React.FC<{ config: DocsSimpleLayoutConfig & { isServerSide?: boolean } }> = ({ config }) => {
   const url =
     (config.Url ?? "").trim() === ""
       ? "guidenai.com"
@@ -65,7 +64,6 @@ const Component: React.FC<{ config: DocsLayoutConfig & { isServerSide?: boolean 
       </div>
 
       {/* docs link  */}
-
       <p
         tw="absolute right-10 bottom-4 text-xl"
         style={{ color: "hsl(0, 0.00%, 100.00%)" }}
@@ -75,18 +73,13 @@ const Component: React.FC<{ config: DocsLayoutConfig & { isServerSide?: boolean 
 
       {/* custom logo */}
       <CustomLogo logo={config.Logo} tw="absolute" style={{ top: 106, right: 97 }} isServerSide={config.isServerSide} />
-
-      {/* illustration */}
-      <div tw="absolute top-0 right-0 flex">
-        <DocsIllustration />
-      </div>
     </div>
   );
 };
 
-export const docsLayout: ILayout<typeof docsLayoutConfig> = {
-  name: "docs",
-  config: docsLayoutConfig,
+export const docsSimpleLayout: ILayout<typeof docsSimpleLayoutConfig> = {
+  name: "docs-simple",
+  config: docsSimpleLayoutConfig,
   properties: [
     {
       type: "text",

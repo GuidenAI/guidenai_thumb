@@ -1,5 +1,6 @@
 import { blogLayout } from "./blogLayout";
 import { docsLayout } from "./docsLayout";
+import { docsSimpleLayout } from "./docsSimpleLayout";
 import { simpleLayout } from "./simpleLayout";
 import { starterLayout } from "./starterLayout";
 import { templateLayout } from "./templateLayout";
@@ -7,6 +8,7 @@ import { ILayout, ILayoutConfig } from "./types";
 
 export const layouts: ILayout<any>[] = [
   docsLayout,
+  docsSimpleLayout,
   blogLayout,
   starterLayout,
   simpleLayout,
