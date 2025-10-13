@@ -7,7 +7,9 @@ import { GradientBackground } from "./utils";
 const starterLayoutConfig = z.object({
   Name: z.string().default(""),
   URL: z.string().nullish(),
+  IconURL: z.string().default(""),
   Icon: z.enum(["Show", "Hide"]).default("Show"),
+  Platform: z.enum(["GuidenAI", "BroxiAI"]).default("GuidenAI"),
   Logo: z.enum([
     "guidenai-dark",
     "guidenai-light", 
@@ -15,14 +17,13 @@ const starterLayoutConfig = z.object({
     "broxi-dark",
     "broxi-light",
     "broxi-colored"
-  ] as const).default("guidenai-dark"),
+  ] as const).default("guidenai-light"),
 });
 
 export type BlogLayoutConfig = z.infer<typeof starterLayoutConfig>;
 
 const Component: React.FC<{ config: BlogLayoutConfig & { isServerSide?: boolean } }> = ({ config }) => {
-  const iconName = config.Name.trim() === "" ? "Railway" : config.Name;
-  const iconURL = `https://devicons.railway.app/${iconName}?variant=light`;
+  const iconURL = config.IconURL || `https://devicons.railway.app/${config.Name || "GuidenAI"}?variant=light`;
   const hideIcon = config.Icon === "Hide";
 
   return (
@@ -45,7 +46,7 @@ const Component: React.FC<{ config: BlogLayoutConfig & { isServerSide?: boolean 
             {config.Name}
           </span>
           <br />
-          on Railway
+          on {config.Platform}
         </p>
       </div>
 
@@ -82,15 +83,27 @@ export const starterLayout: ILayout<typeof starterLayoutConfig> = {
       placeholder: "github.com/railwayapp/starters",
     },
     {
+      name: "IconURL",
+      type: "text",
+      default: "",
+      placeholder: "Custom icon URL (optional)",
+    },
+    {
       name: "Icon",
       type: "select",
       options: ["Show", "Hide"],
       default: "Show",
     },
     {
+      name: "Platform",
+      type: "select",
+      options: ["GuidenAI", "BroxiAI"],
+      default: "GuidenAI",
+    },
+    {
       name: "Logo",
       type: "select",
-      default: "guidenai-dark",
+      default: "guidenai-light",
       options: logoOptions.map(option => option.value),
     },
   ],

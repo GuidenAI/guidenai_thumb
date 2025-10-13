@@ -1,11 +1,18 @@
 import React from "react";
 import { z } from "zod";
 import { TemplateIllustration } from "../components/TemplateIllustration";
-
+import { CustomLogo, LogoOption, logoOptions } from "../components/CustomLogo";
 import { ILayout } from "./types";
 
 const templateLayoutConfig = z.object({
-  TemplateImage: z.string().url(),
+  TemplateImage: z.enum([
+    "guidenai-dark",
+    "guidenai-light", 
+    "guidenai-colored",
+    "broxi-dark",
+    "broxi-light",
+    "broxi-colored"
+  ] as const).default("guidenai-light"),
   Title: z.string(),
   Description: z.string(),
   AuthorImage: z.string().nullish(),
@@ -15,7 +22,7 @@ const templateLayoutConfig = z.object({
 
 type TemplateLayoutConfig = z.infer<typeof templateLayoutConfig>;
 
-const Component: React.FC<{ config: TemplateLayoutConfig }> = ({ config }) => {
+const Component: React.FC<{ config: TemplateLayoutConfig & { isServerSide?: boolean } }> = ({ config }) => {
   const {
     TemplateImage,
     Title,
@@ -31,7 +38,11 @@ const Component: React.FC<{ config: TemplateLayoutConfig }> = ({ config }) => {
         <TemplateIllustration />
       </div>
       <div tw="flex flex-col justify-between h-full px-20 pt-20 pb-12">
-        <img src={TemplateImage} alt={Title} height={64} width={64} />
+        <CustomLogo
+          logo={TemplateImage}
+          style={{ width: 64, height: 64 }}
+          isServerSide={config.isServerSide}
+        />
         <div tw="flex flex-col gap-4">
           <p tw="text-6xl font-bold text-white">{Title}</p>
           <div tw="flex grow items-end">
@@ -102,29 +113,30 @@ export const templateLayout: ILayout<typeof templateLayoutConfig> = {
   properties: [
     {
       name: "TemplateImage",
-      type: "text",
-      default: "https://devicons.railway.app/i/umami-dark.svg",
+      type: "select",
+      default: "guidenai-light",
+      options: logoOptions.map(option => option.value),
     },
     {
       name: "Title",
       type: "text",
-      default: "Umami",
+      default: "BroxiAI",
     },
     {
       name: "Description",
       type: "text",
       default:
-        "Umami is a simple, fast, website analytics tool for those who care about privacy.",
+        "Thumbnail description",
     },
     {
       name: "AuthorImage",
       type: "text",
-      default: "https://avatars.githubusercontent.com/u/10681116?v=4",
+      default: "",
     },
     {
       name: "AuthorName",
       type: "text",
-      default: "Percy",
+      default: "Jason",
     },
     {
       name: "Category",
