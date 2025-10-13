@@ -9,13 +9,13 @@ export interface Props extends NextSeoProps {
   image?: string;
 }
 
-const title = "Railway OG Image Generator";
+const title = "GuidenAI OG Image Generator";
 export const url = "";
-const description = "Service that generates dynamic OG images for railway.app";
+const description = "Service that generates dynamic OG images for guidenai.com";
 
 // Generate OG image for itself
 const image =
-  "https://og.railway.app/api/image?fileType=png&layoutName=Railway&Theme=Dark&Title=Open+Graph%5CnImage+Generator&Sub+Title=og.railway.app";
+  "https://thumb.guidenai.com/api/image?fileType=png&layoutName=Railway&Theme=Dark&Title=Open+Graph%5CnImage+Generator&Sub+Title=thumb.guidenai.com";
 
 const config: DefaultSeoProps = {
   title,
@@ -27,7 +27,7 @@ const config: DefaultSeoProps = {
     images: [{ url: image }],
   },
   twitter: {
-    handle: "@Railway_App",
+    handle: "@GuidenAI",
     cardType: "summary_large_image",
   },
 };
