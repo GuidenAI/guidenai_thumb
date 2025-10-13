@@ -14,7 +14,7 @@ const docsLayoutConfig = z.object({
     "broxi-dark",
     "broxi-light",
     "broxi-colored"
-  ] as const).default("guidenai-dark"),
+  ] as const).default("guidenai-light"),
 });
 
 export type DocsLayoutConfig = z.infer<typeof docsLayoutConfig>;
@@ -22,7 +22,7 @@ export type DocsLayoutConfig = z.infer<typeof docsLayoutConfig>;
 const Component: React.FC<{ config: DocsLayoutConfig & { isServerSide?: boolean } }> = ({ config }) => {
   const url =
     (config.Url ?? "").trim() === ""
-      ? "docs.railway.com"
+      ? "guidenai.com"
       : (config.Url as string);
   return (
     <div
@@ -91,19 +91,19 @@ export const docsLayout: ILayout<typeof docsLayoutConfig> = {
     {
       type: "text",
       name: "Page",
-      default: "Railway Documentation",
+      default: "GuidenAI Documentation",
       placeholder: "Text to display",
     },
     {
       type: "text",
       name: "Url",
-      default: "docs.railway.com",
+      default: "guidenai.com",
       placeholder: "Url to display",
     },
     {
       type: "select",
       name: "Logo",
-      default: "guidenai-dark",
+      default: "guidenai-light",
       options: logoOptions.map(option => option.value),
     },
   ],

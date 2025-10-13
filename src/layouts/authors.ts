@@ -38,5 +38,13 @@ const defaultAuthor = authors[0];
 export const getAuthor = (name: string) => {
   const author = authors.find(author => author.name === name);
 
-  return author ?? defaultAuthor;
+  if (author) {
+    return author;
+  }
+
+  // For manual author names, return a default avatar
+  return {
+    name: name,
+    image: "https://og.railway.app/authors/default-avatar.png", // You can replace this with any default avatar URL
+  };
 };

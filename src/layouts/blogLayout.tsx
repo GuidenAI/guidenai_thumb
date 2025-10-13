@@ -2,7 +2,6 @@ import React from "react";
 import { z } from "zod";
 import { DocsIllustration } from "../components/DocsIllustration";
 import { CustomLogo, LogoOption, logoOptions } from "../components/CustomLogo";
-import { authors, getAuthor } from "./authors";
 import { ILayout } from "./types";
 import { GradientBackground } from "./utils";
 
@@ -20,13 +19,12 @@ const blogLayoutConfig = z.object({
     "broxi-dark",
     "broxi-light",
     "broxi-colored"
-  ] as const).default("guidenai-dark"),
+  ] as const).default("guidenai-light"),
 });
 
 export type BlogLayoutConfig = z.infer<typeof blogLayoutConfig>;
 
 const Component: React.FC<{ config: BlogLayoutConfig & { isServerSide?: boolean } }> = ({ config }) => {
-  const author = getAuthor(config.Author);
   const length = config.Title.length;
 
   return (
@@ -52,12 +50,7 @@ const Component: React.FC<{ config: BlogLayoutConfig & { isServerSide?: boolean 
         </p>
 
         <div tw="flex items-center mt-6">
-          <img
-            src={author.image}
-            alt={author.name}
-            style={{ borderRadius: "100%", width: 56, height: 56 }}
-          />
-          <p tw="text-3xl opacity-60 ml-7">{config.Author}</p>
+          <p tw="text-3xl opacity-60">{config.Author}</p>
         </div>
       </div>
 
@@ -87,10 +80,10 @@ export const blogLayout: ILayout<typeof blogLayoutConfig> = {
       placeholder: "Blog post title",
     },
     {
-      type: "select",
+      type: "text",
       name: "Author",
       default: "Jake Runzer",
-      options: authors.map(author => author.name),
+      placeholder: "Author name",
     },
     {
       type: "select",
@@ -101,7 +94,7 @@ export const blogLayout: ILayout<typeof blogLayoutConfig> = {
     {
       type: "select",
       name: "Logo",
-      default: "guidenai-dark",
+      default: "guidenai-light",
       options: logoOptions.map(option => option.value),
     },
   ],
