@@ -42,7 +42,7 @@ const Component: React.FC<{ config: DocsSimpleLayoutConfig & { isServerSide?: bo
         tw="absolute inset-0"
         style={{
           background:
-            "linear-gradient(245.93deg, rgba(37, 209, 21, 0.26) 0%, rgba(209, 25, 80, 0) 36.63%)",
+            "linear-gradient(245.93deg, rgba(37, 209, 21, 0.26) 0%, rgba(25, 209, 86, 0) 36.63%)",
         }}
       />
       <div
