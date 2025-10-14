@@ -1,6 +1,11 @@
 import { blogLayout } from "./blogLayout";
 import { docsLayout } from "./docsLayout";
-import { docsSimpleLayout } from "./docsSimpleLayout";
+import { docsSimpleMintLayout } from "./docsSimpleMintLayout";
+import { docsSimpleOceanLayout } from "./docsSimpleOceanLayout";
+import { docsSimplePinkyLayout } from "./docsSimplePinkyLayout";
+import { docsSimpleDreamyLayout } from "./docsSimpleDreamyLayout";
+import { docsSimpleLoveableLayout } from "./docsSimpleLoveableLayout";
+import { docsSimpleDarkOceanLayout } from "./docsSimpleDarkOceanLayout";
 import { simpleLayout } from "./simpleLayout";
 import { starterLayout } from "./starterLayout";
 import { templateLayout } from "./templateLayout";
@@ -8,7 +13,12 @@ import { ILayout, ILayoutConfig } from "./types";
 
 export const layouts: ILayout<any>[] = [
   docsLayout,
-  docsSimpleLayout,
+  docsSimpleMintLayout,
+  docsSimpleOceanLayout,
+  docsSimpleDarkOceanLayout,
+  docsSimplePinkyLayout,
+  docsSimpleDreamyLayout,
+  docsSimpleLoveableLayout,
   blogLayout,
   starterLayout,
   simpleLayout,

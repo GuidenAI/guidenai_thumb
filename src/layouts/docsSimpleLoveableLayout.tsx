@@ -1,10 +1,9 @@
 import React from "react";
 import { z } from "zod";
-import { DocsIllustration } from "../components/DocsIllustration";
 import { CustomLogo, logoOptions } from "../components/CustomLogo";
 import { ILayout } from "./types";
 
-const docsLayoutConfig = z.object({
+const docsSimpleLoveableLayoutConfig = z.object({
   Page: z.string(),
   Url: z.string().nullish(),
   Logo: z.enum([
@@ -17,9 +16,9 @@ const docsLayoutConfig = z.object({
   ] as const).default("guidenai-light"),
 });
 
-export type DocsLayoutConfig = z.infer<typeof docsLayoutConfig>;
+export type DocsSimpleLoveableLayoutConfig = z.infer<typeof docsSimpleLoveableLayoutConfig>;
 
-const Component: React.FC<{ config: DocsLayoutConfig & { isServerSide?: boolean } }> = ({ config }) => {
+const Component: React.FC<{ config: DocsSimpleLoveableLayoutConfig & { isServerSide?: boolean } }> = ({ config }) => {
   const url =
     (config.Url ?? "").trim() === ""
       ? "guidenai.com"
@@ -36,14 +35,14 @@ const Component: React.FC<{ config: DocsLayoutConfig & { isServerSide?: boolean 
         tw="absolute inset-0"
         style={{
           background:
-            "linear-gradient(327.21deg, rgba(33, 0, 75, 0.35) 3.65%, rgba(60, 0, 136, 0) 40.32%)",
+            "linear-gradient(327.21deg, rgba(0, 5, 75, 0.35) 3.65%, rgba(20, 0, 136, 0) 40.32%)",
         }}
       />
       <div
         tw="absolute inset-0"
         style={{
           background:
-            "linear-gradient(245.93deg,rgba(31, 192, 95, 0.9) 0%, #079968 36.63%)",
+            "linear-gradient(245.93deg, #E9570D 0%, #D73C30 36.63%, #C11C58 100%)",
         }}
       />
       <div
@@ -65,7 +64,6 @@ const Component: React.FC<{ config: DocsLayoutConfig & { isServerSide?: boolean 
       </div>
 
       {/* docs link  */}
-
       <p
         tw="absolute right-10 bottom-4 text-xl"
         style={{ color: "hsl(0, 0.00%, 100.00%)" }}
@@ -75,18 +73,13 @@ const Component: React.FC<{ config: DocsLayoutConfig & { isServerSide?: boolean 
 
       {/* custom logo */}
       <CustomLogo logo={config.Logo} tw="absolute" style={{ top: 106, right: 97 }} isServerSide={config.isServerSide} />
-
-      {/* illustration */}
-      <div tw="absolute top-0 right-0 flex">
-        <DocsIllustration />
-      </div>
     </div>
   );
 };
 
-export const docsLayout: ILayout<typeof docsLayoutConfig> = {
-  name: "docs",
-  config: docsLayoutConfig,
+export const docsSimpleLoveableLayout: ILayout<typeof docsSimpleLoveableLayoutConfig> = {
+  name: "docs-simple-loveable",
+  config: docsSimpleLoveableLayoutConfig,
   properties: [
     {
       type: "text",

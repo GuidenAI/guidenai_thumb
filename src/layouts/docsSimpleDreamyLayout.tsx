@@ -3,7 +3,7 @@ import { z } from "zod";
 import { CustomLogo, logoOptions } from "../components/CustomLogo";
 import { ILayout } from "./types";
 
-const docsSimpleLayoutConfig = z.object({
+const docsSimpleDreamyLayoutConfig = z.object({
   Page: z.string(),
   Url: z.string().nullish(),
   Logo: z.enum([
@@ -16,9 +16,9 @@ const docsSimpleLayoutConfig = z.object({
   ] as const).default("guidenai-light"),
 });
 
-export type DocsSimpleLayoutConfig = z.infer<typeof docsSimpleLayoutConfig>;
+export type DocsSimpleDreamyLayoutConfig = z.infer<typeof docsSimpleDreamyLayoutConfig>;
 
-const Component: React.FC<{ config: DocsSimpleLayoutConfig & { isServerSide?: boolean } }> = ({ config }) => {
+const Component: React.FC<{ config: DocsSimpleDreamyLayoutConfig & { isServerSide?: boolean } }> = ({ config }) => {
   const url =
     (config.Url ?? "").trim() === ""
       ? "guidenai.com"
@@ -35,14 +35,14 @@ const Component: React.FC<{ config: DocsSimpleLayoutConfig & { isServerSide?: bo
         tw="absolute inset-0"
         style={{
           background:
-            "linear-gradient(327.21deg, rgba(33, 0, 75, 0.35) 3.65%, rgba(60, 0, 136, 0) 40.32%)",
+            "linear-gradient(327.21deg, rgba(0, 5, 75, 0.35) 3.65%, rgba(20, 0, 136, 0) 40.32%)",
         }}
       />
       <div
         tw="absolute inset-0"
         style={{
           background:
-            "linear-gradient(245.93deg, rgba(37, 209, 21, 0.26) 0%, rgba(25, 209, 86, 0) 36.63%)",
+            "linear-gradient(245.93deg, #2761EA 0%, #5044DD 36.63%, #7C24CF 100%)",
         }}
       />
       <div
@@ -77,9 +77,9 @@ const Component: React.FC<{ config: DocsSimpleLayoutConfig & { isServerSide?: bo
   );
 };
 
-export const docsSimpleLayout: ILayout<typeof docsSimpleLayoutConfig> = {
-  name: "docs-simple",
-  config: docsSimpleLayoutConfig,
+export const docsSimpleDreamyLayout: ILayout<typeof docsSimpleDreamyLayoutConfig> = {
+  name: "docs-simple-dreamy",
+  config: docsSimpleDreamyLayoutConfig,
   properties: [
     {
       type: "text",
