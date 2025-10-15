@@ -21,8 +21,8 @@ export const RLogo: React.FC<{
 }> = ({ theme = "dark", style, ...props }) => {
   const rlogo =
     theme === "dark"
-      ? "https://railway.app/brand/logo-light.svg"
-      : "https://railway.app/brand/logo-dark.svg";
+      ? "https://thumb.guidenai.com/assets/guidenai-light.svg"
+      : "https://thumb.guidenai.com/assets/guidenai-dark.svg";
 
   return (
     <img
