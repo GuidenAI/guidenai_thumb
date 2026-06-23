@@ -3,12 +3,12 @@ import { z } from "zod";
 import { CustomLogo, logoOptions } from "../components/CustomLogo";
 import { ILayout } from "./types";
 
-const docsSimpleMintLayoutConfig = z.object({
+const docsSimpleGenpioLayoutConfig = z.object({
   Page: z.string(),
   Url: z.string().nullish(),
   Logo: z.enum([
     "guidenai-dark",
-    "guidenai-light", 
+    "guidenai-light",
     "guidenai-colored",
     "broxi-dark",
     "broxi-light",
@@ -16,15 +16,15 @@ const docsSimpleMintLayoutConfig = z.object({
     "genpio-dark",
     "genpio-light",
     "genpio-colored"
-  ] as const).default("guidenai-light"),
+  ] as const).default("genpio-colored"),
 });
 
-export type DocsSimpleMintLayoutConfig = z.infer<typeof docsSimpleMintLayoutConfig>;
+export type DocsSimpleGenpioLayoutConfig = z.infer<typeof docsSimpleGenpioLayoutConfig>;
 
-const Component: React.FC<{ config: DocsSimpleMintLayoutConfig & { isServerSide?: boolean } }> = ({ config }) => {
+const Component: React.FC<{ config: DocsSimpleGenpioLayoutConfig & { isServerSide?: boolean } }> = ({ config }) => {
   const url =
     (config.Url ?? "").trim() === ""
-      ? "guidenai.com"
+      ? "genpio.com"
       : (config.Url as string);
   return (
     <div
@@ -45,7 +45,7 @@ const Component: React.FC<{ config: DocsSimpleMintLayoutConfig & { isServerSide?
         tw="absolute inset-0"
         style={{
           background:
-            "linear-gradient(245.93deg,rgba(31, 192, 95, 0.83) 0%, #079968 36.63%)",
+            "linear-gradient(245.93deg, #FB823A 0%, #F3B9C6 36.63%)",
         }}
       />
       <div
@@ -80,26 +80,26 @@ const Component: React.FC<{ config: DocsSimpleMintLayoutConfig & { isServerSide?
   );
 };
 
-export const docsSimpleMintLayout: ILayout<typeof docsSimpleMintLayoutConfig> = {
-  name: "docs-simple-mint",
-  config: docsSimpleMintLayoutConfig,
+export const docsSimpleGenpioLayout: ILayout<typeof docsSimpleGenpioLayoutConfig> = {
+  name: "docs-simple-genpio",
+  config: docsSimpleGenpioLayoutConfig,
   properties: [
     {
       type: "text",
       name: "Page",
-      default: "GuidenAI Documentation",
+      default: "Genpio Documentation",
       placeholder: "Text to display",
     },
     {
       type: "text",
       name: "Url",
-      default: "guidenai.com",
+      default: "genpio.com",
       placeholder: "Url to display",
     },
     {
       type: "select",
       name: "Logo",
-      default: "guidenai-light",
+      default: "genpio-colored",
       options: logoOptions.map(option => option.value),
     },
   ],

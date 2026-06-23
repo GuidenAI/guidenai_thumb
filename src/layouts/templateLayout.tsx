@@ -11,7 +11,10 @@ const templateLayoutConfig = z.object({
     "guidenai-colored",
     "broxi-dark",
     "broxi-light",
-    "broxi-colored"
+    "broxi-colored",
+    "genpio-dark",
+    "genpio-light",
+    "genpio-colored"
   ] as const).default("guidenai-light"),
   Title: z.string(),
   Description: z.string(),

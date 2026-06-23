@@ -6,6 +6,7 @@ import { docsSimplePinkyLayout } from "./docsSimplePinkyLayout";
 import { docsSimpleDreamyLayout } from "./docsSimpleDreamyLayout";
 import { docsSimpleLoveableLayout } from "./docsSimpleLoveableLayout";
 import { docsSimpleDarkOceanLayout } from "./docsSimpleDarkOceanLayout";
+import { docsSimpleGenpioLayout } from "./docsSimpleGenpioLayout";
 import { simpleLayout } from "./simpleLayout";
 import { starterLayout } from "./starterLayout";
 import { templateLayout } from "./templateLayout";
@@ -19,6 +20,7 @@ export const layouts: ILayout<any>[] = [
   docsSimplePinkyLayout,
   docsSimpleDreamyLayout,
   docsSimpleLoveableLayout,
+  docsSimpleGenpioLayout,
   blogLayout,
   starterLayout,
   simpleLayout,

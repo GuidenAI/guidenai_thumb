@@ -1,12 +1,15 @@
 import React from "react";
 
-export type LogoOption = 
+export type LogoOption =
   | "guidenai-dark"
-  | "guidenai-light" 
+  | "guidenai-light"
   | "guidenai-colored"
   | "broxi-dark"
   | "broxi-light"
-  | "broxi-colored";
+  | "broxi-colored"
+  | "genpio-dark"
+  | "genpio-light"
+  | "genpio-colored";
 
 export const logoOptions: { value: LogoOption; label: string }[] = [
   { value: "guidenai-dark", label: "GuidenAI Dark" },
@@ -15,6 +18,9 @@ export const logoOptions: { value: LogoOption; label: string }[] = [
   { value: "broxi-dark", label: "Broxi Dark" },
   { value: "broxi-light", label: "Broxi Light" },
   { value: "broxi-colored", label: "Broxi Colored" },
+  { value: "genpio-dark", label: "Genpio Dark" },
+  { value: "genpio-light", label: "Genpio Light" },
+  { value: "genpio-colored", label: "Genpio Colored" },
 ];
 
 // Cache for base64 encoded logos (server-side only)
@@ -35,6 +41,9 @@ const getLogoAsBase64 = (logo: LogoOption): string => {
     "broxi-dark": "public/assets/broxi-dark.svg",
     "broxi-light": "public/assets/broxi-light.svg",
     "broxi-colored": "public/assets/broxi-colored.svg",
+    "genpio-dark": "public/assets/genpio-dark.svg",
+    "genpio-light": "public/assets/genpio-light.svg",
+    "genpio-colored": "public/assets/genpio-colored.svg",
   };
 
   // Only try to read files on server-side
@@ -75,6 +84,9 @@ export const getLogoPath = (logo: LogoOption, isServerSide = false): string => {
       "broxi-dark": "/assets/broxi-dark.svg",
       "broxi-light": "/assets/broxi-light.svg",
       "broxi-colored": "/assets/broxi-colored.svg",
+      "genpio-dark": "/assets/genpio-dark.svg",
+      "genpio-light": "/assets/genpio-light.svg",
+      "genpio-colored": "/assets/genpio-colored.svg",
     };
     return logoMap[logo];
   }
